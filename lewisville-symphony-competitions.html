@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Competitions — Lewisville Lake Symphony</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:    #0D1B2A;
+      --navy-md: #1A2E45;
+      --gold:    #C9A84C;
+      --gold-lt: #E8C96A;
+      --cream:   #FAF8F4;
+      --gray-lt: #F4F2EE;
+      --gray:    #6B7280;
+      --text:    #1C1C1E;
+      --white:   #FFFFFF;
+      --radius:  6px;
+      --shadow:  0 4px 24px rgba(0,0,0,.09);
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; color: var(--text); background: var(--white); }
+
+    .container { max-width: 1160px; margin: 0 auto; padding: 0 24px; }
+    .section-label { font-size: 11px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: clamp(28px, 4vw, 44px); font-weight: 700; color: var(--navy); line-height: 1.18; }
+    .btn { display: inline-block; padding: 14px 32px; border-radius: var(--radius); font-weight: 600; font-size: 14px; letter-spacing: .04em; text-decoration: none; cursor: pointer; transition: all .18s ease; }
+    .btn-gold { background: var(--gold); color: var(--navy); }
+    .btn-gold:hover { background: var(--gold-lt); }
+    .btn-navy { background: var(--navy); color: var(--white); }
+    .btn-navy:hover { background: var(--navy-md); }
+    .btn-outline-navy { border: 1.5px solid var(--navy); color: var(--navy); background: transparent; }
+    .btn-outline-navy:hover { background: var(--navy); color: var(--white); }
+    .btn-outline-white { border: 1.5px solid rgba(255,255,255,.35); color: var(--white); background: transparent; }
+    .btn-outline-white:hover { background: rgba(255,255,255,.1); }
+    .btn-sm { padding: 10px 22px; font-size: 13px; }
+
+    /* ── ANNOUNCE BAR ── */
+    .announce-bar {
+      background: var(--navy); color: rgba(255,255,255,.8);
+      text-align: center; font-size: 13px; padding: 10px 24px;
+    }
+    .announce-bar a { color: var(--gold); text-decoration: none; font-weight: 600; }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--white); border-bottom: 1px solid rgba(0,0,0,.08);
+      box-shadow: 0 2px 12px rgba(0,0,0,.06);
+    }
+    .nav-inner {
+      display: flex; align-items: center; height: 72px;
+      max-width: 1160px; margin: 0 auto; padding: 0 24px;
+    }
+    .nav-logo { display: flex; flex-direction: column; line-height: 1; text-decoration: none; margin-right: 48px; flex-shrink: 0; }
+    .nav-logo-top { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; color: var(--navy); }
+    .nav-logo-sub { font-size: 10px; font-weight: 500; letter-spacing: .18em; text-transform: uppercase; color: var(--gold); margin-top: 2px; }
+    .nav-links { display: flex; gap: 4px; flex: 1; list-style: none; }
+    .nav-links a { display: block; padding: 8px 13px; font-size: 13.5px; font-weight: 500; color: var(--navy); text-decoration: none; border-radius: 5px; transition: background .15s; }
+    .nav-links a:hover, .nav-links a.active { background: var(--gray-lt); }
+    .nav-links a.active { font-weight: 600; }
+    .nav-cta { margin-left: 16px; display: flex; gap: 10px; align-items: center; }
+
+    /* ── PAGE HERO ── */
+    .page-hero {
+      position: relative; background: var(--navy);
+      padding: 88px 0 80px; overflow: hidden;
+    }
+    .page-hero-bg {
+      position: absolute; inset: 0;
+      background: url('https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?auto=format&fit=crop&w=1600&q=70') center/cover no-repeat;
+      opacity: .12;
+    }
+    .page-hero-content { position: relative; z-index: 2; }
+    .breadcrumb {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 12.5px; color: rgba(255,255,255,.45); margin-bottom: 20px;
+    }
+    .breadcrumb a { color: rgba(255,255,255,.45); text-decoration: none; }
+    .breadcrumb a:hover { color: var(--gold); }
+    .breadcrumb span { color: rgba(255,255,255,.25); }
+    .page-hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(36px, 5vw, 60px);
+      font-weight: 700; color: var(--white); line-height: 1.1; margin-bottom: 14px;
+    }
+    .page-hero p {
+      font-size: 17px; color: rgba(255,255,255,.65);
+      font-weight: 300; max-width: 560px; line-height: 1.65; margin-bottom: 36px;
+    }
+    .hero-cta-row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+
+    /* ── OVERVIEW CARDS ── */
+    .overview-section { padding: 80px 0; background: var(--white); }
+    .overview-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+
+    .comp-card {
+      border-radius: 12px; overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+    .comp-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,.14); }
+    .comp-card-header {
+      padding: 36px 36px 28px;
+      background: var(--navy);
+      position: relative;
+    }
+    .comp-card-header.gold-accent { background: linear-gradient(135deg, #0D1B2A 60%, #1e3050); }
+    .comp-card-header.int-accent { background: linear-gradient(135deg, #0D1B2A 40%, #0a2240); }
+    .comp-badge {
+      display: inline-block; padding: 4px 12px; border-radius: 20px;
+      font-size: 11px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase;
+      background: rgba(201,168,76,.18); color: var(--gold);
+      border: 1px solid rgba(201,168,76,.35); margin-bottom: 16px;
+    }
+    .comp-card-title {
+      font-family: 'Playfair Display', serif; font-size: 26px;
+      font-weight: 700; color: var(--white); line-height: 1.2; margin-bottom: 8px;
+    }
+    .comp-card-sub { font-size: 14px; color: rgba(255,255,255,.55); line-height: 1.5; }
+    .comp-card-body { padding: 32px 36px; background: var(--white); }
+    .prize-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 12px 0; border-bottom: 1px solid var(--gray-lt);
+    }
+    .prize-row:last-of-type { border-bottom: none; }
+    .prize-label { font-size: 14px; color: var(--gray); font-weight: 500; }
+    .prize-amount {
+      font-family: 'Playfair Display', serif; font-size: 22px;
+      font-weight: 700; color: var(--navy);
+    }
+    .prize-note { font-size: 12px; color: var(--gray); margin-top: 2px; }
+    .comp-card-cta { margin-top: 24px; display: flex; gap: 10px; flex-wrap: wrap; }
+
+    /* ── DETAIL SECTIONS ── */
+    .detail-section { padding: 80px 0; }
+    .detail-section.cream { background: var(--cream); }
+    .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+    .detail-grid.reverse { direction: rtl; }
+    .detail-grid.reverse > * { direction: ltr; }
+
+    .detail-image {
+      border-radius: 10px; overflow: hidden;
+      aspect-ratio: 4/3; position: relative;
+    }
+    .detail-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .detail-image-placeholder {
+      width: 100%; height: 100%; min-height: 300px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 48px;
+    }
+
+    .detail-content { display: flex; flex-direction: column; gap: 20px; }
+    .detail-content p { font-size: 15.5px; color: var(--gray); line-height: 1.75; }
+
+    .eligibility-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 4px; }
+    .eligibility-box {
+      background: var(--gray-lt); border-radius: 8px; padding: 16px 18px;
+    }
+    .eligibility-box h5 {
+      font-size: 12px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 6px;
+    }
+    .eligibility-box p { font-size: 13.5px; color: var(--text); line-height: 1.5; margin: 0; }
+
+    .prize-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .prize-list li {
+      display: flex; align-items: flex-start; gap: 12px;
+      font-size: 14.5px; color: var(--text); line-height: 1.55;
+    }
+    .prize-list li::before {
+      content: ''; flex-shrink: 0; width: 8px; height: 8px;
+      border-radius: 50%; background: var(--gold); margin-top: 5px;
+    }
+
+    /* ── CYCLE SECTION ── */
+    .cycle-section { padding: 80px 0; background: var(--white); }
+    .cycle-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 48px; }
+    .cycle-card {
+      border-radius: 10px; padding: 36px;
+      border: 1.5px solid rgba(0,0,0,.08);
+      position: relative;
+    }
+    .cycle-card.active-cycle {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 1px var(--gold), var(--shadow);
+    }
+    .cycle-year-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 11px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .cycle-year-badge.current {
+      color: var(--gold);
+    }
+    .cycle-year-badge.upcoming {
+      color: var(--gray);
+    }
+    .cycle-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+    }
+    .cycle-dot.current { background: var(--gold); }
+    .cycle-dot.upcoming { background: var(--gray); }
+    .cycle-title {
+      font-family: 'Playfair Display', serif; font-size: 24px;
+      font-weight: 700; color: var(--navy); margin-bottom: 8px;
+    }
+    .cycle-desc { font-size: 14.5px; color: var(--gray); line-height: 1.65; margin-bottom: 20px; }
+    .cycle-prizes { display: flex; flex-direction: column; gap: 8px; }
+    .cycle-prize-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 8px 12px; background: var(--gray-lt); border-radius: 6px;
+    }
+    .cycle-prize-label { font-size: 13px; font-weight: 600; color: var(--text); }
+    .cycle-prize-value { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; color: var(--navy); }
+
+    /* ── APPLY CTA ── */
+    .apply-section {
+      padding: 96px 0; background: var(--navy);
+      position: relative; overflow: hidden; text-align: center;
+    }
+    .apply-bg {
+      position: absolute; inset: 0;
+      background: url('https://images.unsplash.com/photo-1465847899084-d164df4dedc6?auto=format&fit=crop&w=1600&q=60') center/cover no-repeat;
+      opacity: .07;
+    }
+    .apply-content { position: relative; z-index: 2; max-width: 680px; margin: 0 auto; }
+    .apply-content .section-label { color: var(--gold-lt); margin-bottom: 12px; }
+    .apply-content h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(30px, 4vw, 48px); font-weight: 700;
+      color: var(--white); line-height: 1.15; margin-bottom: 16px;
+    }
+    .apply-content p { font-size: 16px; color: rgba(255,255,255,.6); line-height: 1.7; margin-bottom: 36px; }
+    .apply-btn-row { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .apply-note { margin-top: 24px; font-size: 13px; color: rgba(255,255,255,.35); }
+
+    /* ── PAST WINNERS ── */
+    .winners-section { padding: 80px 0; background: var(--cream); }
+    .winners-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 48px; }
+    .winner-card {
+      background: var(--white); border-radius: 10px; padding: 28px 24px;
+      box-shadow: 0 2px 16px rgba(0,0,0,.06);
+    }
+    .winner-year { font-size: 11px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+    .winner-comp { font-size: 12px; color: var(--gray); margin-bottom: 12px; }
+    .winner-name { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+    .winner-detail { font-size: 13.5px; color: var(--gray); line-height: 1.5; }
+    .winner-prize { display: inline-block; margin-top: 10px; font-size: 12px; font-weight: 600; color: var(--navy); background: var(--gray-lt); padding: 3px 10px; border-radius: 20px; }
+
+    /* ── INFO STRIP ── */
+    .info-strip {
+      background: var(--gold); padding: 20px 0;
+    }
+    .info-strip-inner {
+      max-width: 1160px; margin: 0 auto; padding: 0 24px;
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;
+    }
+    .info-strip-item { display: flex; align-items: center; gap: 10px; }
+    .info-strip-icon { font-size: 18px; }
+    .info-strip-text { font-size: 14px; font-weight: 600; color: var(--navy); }
+    .info-strip-text small { display: block; font-weight: 400; font-size: 12px; opacity: .75; }
+
+    /* ── FOOTER ── */
+    footer { background: var(--navy); color: rgba(255,255,255,.55); padding: 56px 0 28px; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
+    .footer-brand-name { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; color: var(--white); margin-bottom: 8px; }
+    .footer-brand-tagline { font-size: 13px; line-height: 1.6; max-width: 260px; }
+    .footer-col h4 { font-size: 11px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; }
+    .footer-col a { display: block; font-size: 13.5px; color: rgba(255,255,255,.55); text-decoration: none; margin-bottom: 8px; }
+    .footer-col a:hover { color: var(--gold); }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,.08); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; font-size: 12.5px; flex-wrap: wrap; gap: 8px; }
+    .footer-links { display: flex; gap: 20px; }
+    .footer-links a { color: rgba(255,255,255,.4); text-decoration: none; }
+    .footer-links a:hover { color: var(--gold); }
+  </style>
+</head>
+<body>
+
+<!-- ANNOUNCE BAR -->
+<div class="announce-bar">
+   2026 International Piano Competition — Now Accepting Applications &nbsp;·&nbsp;
+  <a href="https://app.getacceptd.com/lewisvillesymphony" target="_blank">Apply via Acceptd →</a>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a class="nav-logo" href="index.html">
+      <span class="nav-logo-top">Lewisville Lake Symphony</span>
+      <span class="nav-logo-sub">Lewisville, Texas · Est. 1985</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="lewisville-symphony-tickets.html">Concerts &amp; Tickets</a></li>
+      <li><a href="lewisville-symphony-donate.html">Donate</a></li>
+      <li><a href="lewisville-symphony-about.html">About</a></li>
+      <li><a href="lewisville-symphony-youth.html">Youth Programs</a></li>
+      <li><a href="lewisville-symphony-competitions.html" class="active">Competitions</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a class="btn btn-gold" href="https://www.tix.com/ticket-sales/lewisvillesymphony/3459" target="_blank">Get Tickets</a>
+    </div>
+  </div>
+</nav>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="page-hero-bg"></div>
+  <div class="container page-hero-content">
+    <div class="breadcrumb">
+      <a href="index.html">Home</a>
+      <span>›</span>
+      <span style="color:rgba(255,255,255,.65)">Competitions</span>
+    </div>
+    <h1>LLS Competitions</h1>
+    <p>Two prestigious competitions open doors for young musicians and emerging professionals — offering prize money, performance opportunities with a live professional orchestra, and a launching pad for lasting careers.</p>
+    <div class="hero-cta-row">
+      <a href="#vernell-gregg" class="btn btn-gold">Vernell Gregg Competition</a>
+      <a href="#international" class="btn btn-outline-white">International Competition</a>
+    </div>
+  </div>
+</section>
+
+<!-- OVERVIEW CARDS -->
+<section class="overview-section">
+  <div class="container">
+    <div class="section-label" style="text-align:center; margin-bottom:8px;">Two Competitions</div>
+    <h2 class="section-title" style="text-align:center; margin-bottom:52px;">Advancing the Next Generation of Artists</h2>
+    <div class="overview-grid">
+
+      <!-- VERNELL GREGG -->
+      <div class="comp-card">
+        <div class="comp-card-header gold-accent">
+          <div class="comp-badge">Youth Competition · Grades 6–12</div>
+          <div class="comp-card-title">Vernell Gregg Young Artists Competition</div>
+          <div class="comp-card-sub">Junior Division (Gr. 6–8) and Senior Division (Gr. 9–12) · Open to piano, strings &amp; winds</div>
+        </div>
+        <div class="comp-card-body">
+          <div class="prize-row">
+            <div>
+              <div class="prize-label">Grand Prize</div>
+              <div class="prize-note">Perform with LLS at April Concert</div>
+            </div>
+            <div class="prize-amount">$1,000</div>
+          </div>
+          <div class="prize-row">
+            <div>
+              <div class="prize-label">Open to</div>
+            </div>
+            <div style="text-align:right; font-size:14px; font-weight:600; color:var(--navy);">Piano · Strings · Winds</div>
+          </div>
+          <div class="prize-row">
+            <div>
+              <div class="prize-label">Application</div>
+            </div>
+            <div style="text-align:right; font-size:13px; color:var(--gray);">via Acceptd</div>
+          </div>
+          <div class="comp-card-cta">
+            <a href="#vernell-gregg" class="btn btn-navy btn-sm">Competition Details</a>
+            <a href="https://app.getacceptd.com/lewisvillesymphony" target="_blank" class="btn btn-outline-navy btn-sm">Apply Now →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- INTERNATIONAL -->
+      <div class="comp-card">
+        <div class="comp-card-header int-accent">
+          <div class="comp-badge">International · College / Professional</div>
+          <div class="comp-card-title">LLS International Competition</div>
+          <div class="comp-card-sub">Alternates Piano (even years) and Voice (odd years) · 2026 = Piano Competition</div>
+        </div>
+        <div class="comp-card-body">
+          <div class="prize-row">
+            <div>
+              <div class="prize-label">First Prize</div>
+              <div class="prize-note">Soloist at LLS September Concert</div>
+            </div>
+            <div class="prize-amount">$2,000</div>
+          </div>
+          <div class="prize-row">
+            <div>
+              <div class="prize-label">Second Prize</div>
+              <div class="prize-note">Invited to perform with LLS</div>
+            </div>
+            <div class="prize-amount">$1,000</div>
+          </div>
+          <div class="prize-row">
+            <div>
+              <div class="prize-label">Application</div>
+            </div>
+            <div style="text-align:right; font-size:13px; color:var(--gray);">via Acceptd</div>
+          </div>
+          <div class="comp-card-cta">
+            <a href="#international" class="btn btn-navy btn-sm">Competition Details</a>
+            <a href="https://app.getacceptd.com/lewisvillesymphony" target="_blank" class="btn btn-outline-navy btn-sm">Apply Now →</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- VERNELL GREGG DETAIL -->
+<section class="detail-section cream" id="vernell-gregg">
+  <div class="container">
+    <div class="detail-grid">
+
+      <div class="detail-image" style="background: linear-gradient(135deg, var(--navy-md), var(--navy)); border-radius:10px; min-height:380px; display:flex; align-items:center; justify-content:center;">
+        <img src="img/vernell.jpg" alt="Vernell Gregg Young Artists Competition" style="width:100%;height:100%;object-fit:cover;border-radius:10px;" />
+      </div>
+
+      <div class="detail-content">
+        <div class="section-label">Youth · Annual</div>
+        <h2 class="section-title" style="font-size:clamp(24px,3vw,36px);">Vernell Gregg Young Artists Competition</h2>
+
+        <p>One of North Texas's premier youth music competitions, the Vernell Gregg Young Artists Competition gives students in grades 6 through 12 the opportunity to perform before a professional panel and compete for a $1,000 Grand Prize — plus the unforgettable experience of performing with a live professional orchestra at the LLS April concert.</p>
+
+        <div class="eligibility-grid">
+          <div class="eligibility-box">
+            <h5>Junior Division</h5>
+            <p>Grades 6 – 8</p>
+          </div>
+          <div class="eligibility-box">
+            <h5>Senior Division</h5>
+            <p>Grades 9 – 12</p>
+          </div>
+          <div class="eligibility-box">
+            <h5>Instruments</h5>
+            <p>Piano · Strings · Winds</p>
+          </div>
+          <div class="eligibility-box">
+            <h5>Application</h5>
+            <p>Acceptd platform</p>
+          </div>
+        </div>
+
+        <div>
+          <h4 style="font-size:14px; font-weight:600; color:var(--navy); margin-bottom:12px;">Prizes &amp; Recognition</h4>
+          <ul class="prize-list">
+            <li><strong>Grand Prize — $1,000</strong> · Open to either division. Winner performs as soloist with the Lewisville Lake Symphony at the April concert.</li>
+            <li>All finalists receive recognition in concert programs and the opportunity to perform before a live audience.</li>
+          </ul>
+        </div>
+
+        <div style="display:flex; gap:12px; flex-wrap:wrap;">
+          <a href="https://app.getacceptd.com/lewisvillesymphony" target="_blank" class="btn btn-gold">Apply via Acceptd</a>
+          <a href="https://www.lewisvillesymphony.org/vernell-gregg" target="_blank" class="btn btn-outline-navy">Full Competition Info</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INTERNATIONAL COMPETITION DETAIL -->
+<section class="detail-section" id="international" style="background:var(--white);">
+  <div class="container">
+    <div class="detail-grid reverse">
+
+      <div class="detail-image" style="min-height:380px;">
+        <img src="https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?auto=format&fit=crop&w=800&q=80" alt="Concert pianist performing" style="width:100%;height:100%;object-fit:cover;border-radius:10px;" />
+      </div>
+
+      <div class="detail-content">
+        <div class="section-label">International · Two-Year Cycle</div>
+        <h2 class="section-title" style="font-size:clamp(24px,3vw,36px);">LLS International Competition</h2>
+
+        <p>The LLS International Competition alternates each year between Piano and Voice, offering pre-professional musicians a $2,000 first prize and the opportunity to perform as soloist with a full professional orchestra. The competition is open nationally and internationally to college and university students pursuing careers in performance.</p>
+
+        <div style="background:rgba(201,168,76,.1); border-left: 3px solid var(--gold); border-radius:4px; padding:14px 18px; font-size:14px; color:var(--navy); font-weight:500;">
+          <strong>2026 Piano Competition</strong> — Now accepting applications from pianists ages 18–30 enrolled in a college or university music program.
+        </div>
+
+        <div class="eligibility-grid">
+          <div class="eligibility-box">
+            <h5>Piano (Even Years)</h5>
+            <p>Ages 18–30 · College/university enrollment required</p>
+          </div>
+          <div class="eligibility-box">
+            <h5>Voice (Odd Years)</h5>
+            <p>Ages 21–32 · Professional career focus</p>
+          </div>
+          <div class="eligibility-box">
+            <h5>First Prize</h5>
+            <p>$2,000 + Soloist at September Concert</p>
+          </div>
+          <div class="eligibility-box">
+            <h5>Second Prize</h5>
+            <p>$1,000 + Invitation to perform with LLS</p>
+          </div>
+        </div>
+
+        <div style="display:flex; gap:12px; flex-wrap:wrap;">
+          <a href="https://app.getacceptd.com/lewisvillesymphony" target="_blank" class="btn btn-gold">Apply via Acceptd</a>
+          <a href="https://www.lewisvillesymphony.org/_files/ugd/1dd4b7_c7b10c97e2364d6a9e4a88f994ae64f0.pdf" target="_blank" class="btn btn-outline-navy">Download Competition Info</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TWO-YEAR CYCLE VISUALIZATION -->
+<section class="cycle-section">
+  <div class="container">
+    <div class="section-label">Competition Schedule</div>
+    <h2 class="section-title">International Competition Cycle</h2>
+    <p style="font-size:15.5px; color:var(--gray); margin-top:12px; max-width:580px; line-height:1.7;">The International Competition alternates annually so that both pianists and singers have a dedicated year to compete and shine on the LLS concert stage.</p>
+    <div class="cycle-grid">
+
+      <div class="cycle-card active-cycle">
+        <div class="cycle-year-badge current">
+          <div class="cycle-dot current"></div>
+          2026 — Current Year
+        </div>
+        <div class="cycle-title">Piano Competition</div>
+        <div class="cycle-desc">Open to pianists ages 18–30 enrolled in a college or university music program who are planning a professional career. First Prize winner appears as soloist at the LLS September opening concert.</div>
+        <div class="cycle-prizes">
+          <div class="cycle-prize-row">
+            <span class="cycle-prize-label">First Prize</span>
+            <span class="cycle-prize-value">$2,000</span>
+          </div>
+          <div class="cycle-prize-row">
+            <span class="cycle-prize-label">Second Prize</span>
+            <span class="cycle-prize-value">$1,000</span>
+          </div>
+        </div>
+        <div style="margin-top:18px;">
+          <a href="https://app.getacceptd.com/lewisvillesymphony" target="_blank" class="btn btn-gold btn-sm">Apply Now →</a>
+        </div>
+      </div>
+
+      <div class="cycle-card">
+        <div class="cycle-year-badge upcoming">
+          <div class="cycle-dot upcoming"></div>
+          2027 — Next Year
+        </div>
+        <div class="cycle-title">Voice Competition</div>
+        <div class="cycle-desc">Open to singers ages 21–32 planning a professional career in music. Both First and Second Prize winners receive an invitation to perform with the Lewisville Lake Symphony on the September concert.</div>
+        <div class="cycle-prizes">
+          <div class="cycle-prize-row">
+            <span class="cycle-prize-label">First Prize</span>
+            <span class="cycle-prize-value">$2,000</span>
+          </div>
+          <div class="cycle-prize-row">
+            <span class="cycle-prize-label">Second Prize</span>
+            <span class="cycle-prize-value">$1,000</span>
+          </div>
+        </div>
+        <div style="margin-top:18px; font-size:13px; color:var(--gray);">Applications open Fall 2026</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PAST WINNERS -->
+<section class="winners-section">
+  <div class="container">
+    <div class="section-label">Notable Alumni</div>
+    <h2 class="section-title">Past Competition Winners</h2>
+    <p style="font-size:15.5px; color:var(--gray); margin-top:12px; max-width:580px; line-height:1.7;">LLS competition alumni have gone on to professional careers on concert stages around the world.</p>
+    <div class="winners-grid">
+      <div class="winner-card">
+        <div class="winner-year">2026</div>
+        <div class="winner-comp">International Piano Competition</div>
+        <div class="winner-name">Steven Dong</div>
+        <div class="winner-detail">Grand Prize winner performing as soloist at the 2026–27 LLS Opening Concert in October</div>
+        <span class="winner-prize">$2,000 · Soloist</span>
+      </div>
+      <div class="winner-card">
+        <div class="winner-year">2025</div>
+        <div class="winner-comp">International Voice Competition</div>
+        <div class="winner-name">First Prize Winner</div>
+        <div class="winner-detail">Voice competition — First and Second Prize winners both invited to perform with LLS</div>
+        <span class="winner-prize">$2,000 · Performer</span>
+      </div>
+      <div class="winner-card">
+        <div class="winner-year">2026</div>
+        <div class="winner-comp">Vernell Gregg Young Artists</div>
+        <div class="winner-name">Grand Prize Winner</div>
+        <div class="winner-detail">Grand Prize winner performs as soloist with the full professional Lewisville Lake Symphony</div>
+        <span class="winner-prize">$1,000 · Soloist</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INFO STRIP -->
+<div class="info-strip">
+  <div class="info-strip-inner">
+    <div class="info-strip-item">
+      <span class="info-strip-icon"></span>
+      <div class="info-strip-text">Apply via Acceptd<small>app.getacceptd.com/lewisvillesymphony</small></div>
+    </div>
+    <div class="info-strip-item">
+      <span class="info-strip-icon"></span>
+      <div class="info-strip-text">Questions? Call Us<small>972.874.9087</small></div>
+    </div>
+    <div class="info-strip-item">
+      <span class="info-strip-icon"></span>
+      <div class="info-strip-text">Email the Box Office<small>question@lewisvillesymphony.org</small></div>
+    </div>
+    <div class="info-strip-item">
+      <span class="info-strip-icon"></span>
+      <div class="info-strip-text">International Info PDF<small>Download competition guidelines</small></div>
+    </div>
+  </div>
+</div>
+
+<!-- APPLY CTA -->
+<section class="apply-section">
+  <div class="apply-bg"></div>
+  <div class="container apply-content">
+    <div class="section-label">Ready to Compete?</div>
+    <h2>Apply for a 2026 LLS Competition</h2>
+    <p>Both competitions accept applications through the Acceptd platform. Download the competition guidelines for eligibility requirements, repertoire requirements, and deadlines.</p>
+    <div class="apply-btn-row">
+      <a href="https://app.getacceptd.com/lewisvillesymphony" target="_blank" class="btn btn-gold">Apply on Acceptd</a>
+      <a href="https://www.lewisvillesymphony.org/_files/ugd/1dd4b7_c7b10c97e2364d6a9e4a88f994ae64f0.pdf" target="_blank" class="btn btn-outline-white">Download Competition Info</a>
+      <a href="mailto:question@lewisvillesymphony.org" class="btn btn-outline-white">Email Questions</a>
+    </div>
+    <p class="apply-note">All applications submitted through Acceptd · Questions: 972.874.9087 · question@lewisvillesymphony.org</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand-name">Lewisville Lake Symphony</div>
+        <div class="footer-brand-tagline">Bringing exceptional music and meaningful programs to North Texas since 1984. A 501(c)(3) nonprofit organization.</div>
+        <div style="margin-top:16px; font-size:13px;">1301 Justin Road, Suite 201, PMB 461<br>Lewisville, Texas 75077<br>972.874.9087</div>
+      </div>
+      <div class="footer-col">
+        <h4>Concerts</h4>
+        <a href="lewisville-symphony-tickets.html">Tickets &amp; Pricing</a>
+        <a href="lewisville-symphony-tickets.html#schedule">Concert Schedule</a>
+        <a href="lewisville-symphony-tickets.html">Chamber Series</a>
+        <a href="lewisville-symphony-tickets.html">Group Tickets</a>
+      </div>
+      <div class="footer-col">
+        <h4>Get Involved</h4>
+        <a href="lewisville-symphony-donate.html">Donate</a>
+        <a href="lewisville-symphony-donate.html#chair">Sponsor a Chair</a>
+        <a href="lewisville-symphony-youth.html">Youth Programs</a>
+        <a href="#">Competitions</a>
+      </div>
+      <div class="footer-col">
+        <h4>About</h4>
+        <a href="lewisville-symphony-about.html#mission">Our Mission</a>
+        <a href="lewisville-symphony-about.html#music-director">Music Director</a>
+        <a href="lewisville-symphony-about.html#musicians">The Orchestra</a>
+        <a href="lewisville-symphony-about.html#board">Board of Directors</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2026 Lewisville Lake Symphony Association, Inc. · 501(c)(3) Nonprofit</div>
+      <div class="footer-links">
+        <a href="#">Privacy</a>
+        <a href="#">Contact</a>
+        <a href="https://www.facebook.com/LewisvilleLakeSymphony" target="_blank">Facebook</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
