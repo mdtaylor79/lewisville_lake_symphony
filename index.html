@@ -387,9 +387,9 @@
     .chamber-list { display: flex; flex-direction: column; gap: 0; }
     .chamber-item {
       display: grid;
-      grid-template-columns: 120px 1fr auto;
+      grid-template-columns: 120px 96px 1fr auto;
       align-items: center;
-      gap: 28px;
+      gap: 24px;
       padding: 24px 28px;
       border-radius: 8px;
       transition: background .15s;
@@ -409,6 +409,7 @@
     .cdb-num { font-family: 'Playfair Display', serif; font-size: 30px; font-weight: 700; color: var(--white); line-height: 1; }
     .cdb-month { font-size: 12px; color: rgba(255,255,255,.5); letter-spacing: .06em; text-transform: uppercase; margin-top: 2px; }
     .chamber-info {}
+    .chamber-artist-img { width:88px; height:88px; border-radius:50%; object-fit:cover; border:2px solid rgba(201,168,76,.5); flex-shrink:0; display:block; }
     .chamber-artist { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 600; color: var(--white); margin-bottom: 4px; }
     .chamber-sub { font-size: 13px; color: rgba(255,255,255,.5); }
     .chamber-item .btn { white-space: nowrap; border-color: rgba(201,168,76,.5); color: rgba(201,168,76,.9); font-size: 12.5px; padding: 9px 20px; }
@@ -697,6 +698,160 @@
     ::-webkit-scrollbar { width: 6px; }
     ::-webkit-scrollbar-track { background: var(--cream); }
     ::-webkit-scrollbar-thumb { background: var(--navy-md); border-radius: 3px; }
+
+    /* ═══════════════════════════════════════════
+       RESPONSIVE — injected
+    ═══════════════════════════════════════════ */
+
+    /* Hamburger button */
+    .hamburger {
+      display: none; flex-direction: column; justify-content: center;
+      gap: 5px; cursor: pointer; background: none; border: none;
+      padding: 8px; margin-left: auto; flex-shrink: 0;
+    }
+    .hamburger span {
+      display: block; width: 22px; height: 2px;
+      background: var(--navy); border-radius: 2px;
+      transition: all .25s ease;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* ── Tablet (≤1024px) ── */
+    @media (max-width: 1024px) {
+      .featured-inner { gap: 40px; }
+      .detail-grid { gap: 40px; }
+      .venues-grid { gap: 24px; }
+      .overview-grid { gap: 24px; }
+      .faq-grid { gap: 32px; }
+      .concert-cards { gap: 16px; }
+      .pricing-grid { gap: 20px; }
+    }
+
+    /* ── Mobile (≤768px) ── */
+    @media (max-width: 768px) {
+
+      /* Nav */
+      .hamburger { display: flex; }
+      .nav-inner { height: 64px; position: relative; }
+      .nav-cta { display: none; }
+      .nav-links {
+        display: none; flex-direction: column; gap: 0;
+        position: absolute; top: 64px; left: 0; right: 0;
+        background: var(--white); border-bottom: 2px solid var(--gold);
+        box-shadow: 0 8px 24px rgba(0,0,0,.12); z-index: 999;
+        padding: 8px 0;
+      }
+      .nav-links.open { display: flex; }
+      .nav-links li { width: 100%; }
+      .nav-links a { padding: 12px 24px; border-radius: 0; font-size: 15px; }
+      .nav-logo img { height: 56px !important; }
+
+      /* Hero */
+      .hero { height: 72vh; min-height: 400px; }
+      .hero-content { padding: 40px 20px; }
+      .hero-title { font-size: clamp(30px, 8vw, 48px) !important; }
+      .hero-subtitle { font-size: 15px; }
+      .hero-actions { flex-direction: column; align-items: flex-start; }
+      .hero-scroll { display: none; }
+      .page-hero { padding: 56px 0 48px; }
+      .page-hero h1 { font-size: clamp(28px, 7vw, 44px); }
+
+      /* Announce bar */
+      .announce-bar { font-size: 12px; padding: 8px 16px; }
+
+      /* Universal 2-col → 1-col */
+      .featured-inner,
+      .venues-grid,
+      .faq-grid,
+      .overview-grid,
+      .detail-grid,
+      .profile-grid,
+      .eligibility-grid,
+      .board-columns,
+      .contact-cards,
+      .pricing-grid,
+      .youth-grid,
+      .intern-grid { grid-template-columns: 1fr !important; }
+
+      .detail-grid.reverse { direction: ltr !important; }
+      .detail-grid.reverse > * { direction: ltr !important; }
+
+      /* Concert cards — 2-up on mobile, 1-up on tiny */
+      .concert-cards { grid-template-columns: 1fr 1fr; gap: 12px; }
+
+      /* Schedule rows */
+      .schedule-row {
+        grid-template-columns: 1fr auto !important;
+        gap: 12px; padding: 16px 0;
+      }
+      .schedule-row.with-img {
+        grid-template-columns: 1fr auto !important;
+      }
+      .sched-artist-img { display: none !important; }
+      .sched-info { grid-column: 1; }
+      .sched-action { grid-row: 1; grid-column: 2; }
+      .sched-date-block { grid-column: 1 / -1; }
+      .sched-title { font-size: 16px; }
+
+      /* Sections */
+      .featured-concert { padding: 48px 0; }
+      .detail-section { padding: 56px 0; }
+      .overview-section { padding: 56px 0; }
+      .schedule-section { padding: 56px 0; }
+      .venues-section { padding: 56px 0; }
+      .faq-section { padding: 48px 0; }
+
+      /* Featured concert */
+      .featured-image { aspect-ratio: 16/9; }
+
+      /* Pricing cards */
+      .pricing-grid { gap: 16px; }
+      .pricing-card { padding: 28px 24px; }
+
+      /* Contact section */
+      .contact-inner { flex-direction: column !important; gap: 32px; }
+      .contact-cards { flex-direction: column; }
+
+      /* Venue cards */
+      .venue-card { max-width: 100%; }
+
+      /* Subsections */
+      .sub-nav { top: 64px !important; padding: 0; overflow-x: auto; white-space: nowrap; }
+      .sub-links { gap: 0; }
+      .sub-link { padding: 10px 16px !important; font-size: 13px !important; }
+
+      /* Detail image */
+      .detail-image { aspect-ratio: 16/9; }
+      .profile-img { aspect-ratio: 4/3 !important; }
+
+      /* Competition cards */
+      .comp-card-header { padding: 24px 24px 20px; }
+      .comp-card-body { padding: 24px; }
+      .comp-card-title { font-size: 22px; }
+
+      /* Tabs */
+      .schedule-tabs { gap: 4px; flex-wrap: wrap; }
+      .tab { padding: 8px 16px; font-size: 13px; }
+
+      /* Buttons */
+      .btn { padding: 12px 24px; font-size: 13px; }
+      .hero-actions .btn { width: 100%; max-width: 280px; text-align: center; }
+
+      /* Typography */
+      .section-title { font-size: clamp(24px, 6vw, 36px) !important; }
+
+      /* General container */
+      .container { padding: 0 16px; }
+    }
+
+    /* ── Small mobile (≤480px) ── */
+    @media (max-width: 480px) {
+      .concert-cards { grid-template-columns: 1fr; }
+      .hero { height: 80vh; }
+      .faq-grid > div:last-child { display: none; }
+    }
   </style>
 </head>
 <body>
@@ -713,11 +868,10 @@
 <!-- NAVIGATION -->
 <nav>
   <div class="nav-inner">
-    <a class="nav-logo" href="#">
-      <span class="nav-logo-top">Lewisville Lake Symphony</span>
-      <span class="nav-logo-sub">Lewisville, Texas · Est. 1985</span>
+    <a class="nav-logo" href="#" style="margin-right:48px;flex-shrink:0;">
+      <img src="img/llso_logotype.png" alt="Lewisville Lake Symphony" style="height:80px;width:auto;display:block;" />
     </a>
-    <ul class="nav-links">
+    <ul class="nav-links" id="nav-links">
       <li><a href="index.html" class="active">Home</a></li>
       <li><a href="lewisville-symphony-tickets.html">Concerts &amp; Tickets</a></li>
       <li><a href="lewisville-symphony-donate.html">Donate</a></li>
@@ -837,7 +991,7 @@
     <div class="concert-grid">
       <!-- Card 1 -->
       <div class="concert-card">
-        <img class="card-img" src="https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?auto=format&fit=crop&w=600&q=75" alt="Rachmaninoff" />
+        <img class="card-img" src="img/Steven_Dong_piano.png" alt="Steven Dong, Piano" />
         <div class="card-body">
           <div class="card-date">Oct 9, 2026</div>
           <div class="card-title">Rachmaninoff &amp; Haydn's "Clock"</div>
@@ -847,7 +1001,7 @@
       </div>
       <!-- Card 2 -->
       <div class="concert-card">
-        <div class="card-img-placeholder"></div>
+        <img class="card-img" src="img/music_colab.png" alt="Capriccio Espagnol" />
         <div class="card-body">
           <div class="card-date">Nov 13, 2026</div>
           <div class="card-title">Capriccio Espagnol &amp; Orchestral Favorites</div>
@@ -857,7 +1011,7 @@
       </div>
       <!-- Card 3 -->
       <div class="concert-card">
-        <img class="card-img" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=600&q=75" alt="Guitar" />
+        <img class="card-img" src="img/bokyung_byun.avif" alt="Bokyung Byun, Guitar" />
         <div class="card-body">
           <div class="card-date">Feb 5, 2027</div>
           <div class="card-title">Bokyung Byun, Guitar</div>
@@ -867,7 +1021,7 @@
       </div>
       <!-- Card 4 -->
       <div class="concert-card">
-        <div class="card-img-placeholder"></div>
+        <img class="card-img" src="img/Mozart pic.avif" alt="Mozart's Haffner Symphony" />
         <div class="card-body">
           <div class="card-date">Apr 9, 2027</div>
           <div class="card-title">Mozart's "Haffner" Symphony</div>
@@ -911,6 +1065,7 @@
           <div class="cdb-num">25</div>
           <div class="cdb-month">Sep '26</div>
         </div>
+        <img class="chamber-artist-img" src="img/Daeun Han.avif" alt="Daeun Han" />
         <div class="chamber-info">
           <div class="chamber-artist">Daeun Han, Piano</div>
           <div class="chamber-sub">Opening evening of the International Chamber Series</div>
@@ -924,6 +1079,7 @@
           <div class="cdb-num">29</div>
           <div class="cdb-month">Dec '26</div>
         </div>
+        <img class="chamber-artist-img" src="img/duo_piano.png" alt="TL Piano Duo" />
         <div class="chamber-info">
           <div class="chamber-artist">TL Piano Duo</div>
           <div class="chamber-sub">Taeyu Kwon &amp; Laehyung Woo · Holiday season concert</div>
@@ -937,6 +1093,7 @@
           <div class="cdb-num">22</div>
           <div class="cdb-month">Jan '27</div>
         </div>
+        <img class="chamber-artist-img" src="img/Yuehong Zhu.avif" alt="Yuehong Zhu" />
         <div class="chamber-info">
           <div class="chamber-artist">Yuehong Zhu, Piano</div>
           <div class="chamber-sub">An evening of solo piano masterworks</div>
@@ -950,6 +1107,7 @@
           <div class="cdb-num">19</div>
           <div class="cdb-month">Mar '27</div>
         </div>
+        <img class="chamber-artist-img" src="img/Yejin Lee.avif" alt="Yejin Lee" />
         <div class="chamber-info">
           <div class="chamber-artist">Yejin Lee, Soprano</div>
           <div class="chamber-sub">Season finale featuring vocal artistry &amp; chamber ensemble</div>
@@ -981,7 +1139,7 @@
         <a href="#" class="btn btn-gold">Get Tickets</a>
       </div>
       <div style="border-radius:12px;overflow:hidden;box-shadow:var(--shadow);">
-        <img src="https://images.unsplash.com/photo-1547153760-18fc86324498?auto=format&fit=crop&w=700&q=80" alt="Ballet performance" style="width:100%;display:block;aspect-ratio:4/3;object-fit:cover;" />
+        <img src="img/peter_wolf.jpg" alt="Ballet performance" style="width:100%;display:block;aspect-ratio:4/3;object-fit:cover;" />
       </div>
     </div>
   </div>
@@ -1208,5 +1366,15 @@
   </div>
 </footer>
 
+
+  <script>
+    // Close nav when a link is clicked
+    document.querySelectorAll('.nav-links a').forEach(function(a){
+      a.addEventListener('click', function(){
+        document.getElementById('nav-links').classList.remove('open');
+        document.querySelector('.hamburger') && document.querySelector('.hamburger').classList.remove('open');
+      });
+    });
+  </script>
 </body>
 </html>

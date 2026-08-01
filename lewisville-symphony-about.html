@@ -119,6 +119,160 @@
     .footer-links a{font-size:13px;color:rgba(255,255,255,.4);text-decoration:none}.footer-links a:hover{color:var(--white)}
     .footer-copy{font-size:12px;color:rgba(255,255,255,.25);margin-top:12px}
     ::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:var(--cream)}::-webkit-scrollbar-thumb{background:var(--navy-md);border-radius:3px}
+
+    /* ═══════════════════════════════════════════
+       RESPONSIVE — injected
+    ═══════════════════════════════════════════ */
+
+    /* Hamburger button */
+    .hamburger {
+      display: none; flex-direction: column; justify-content: center;
+      gap: 5px; cursor: pointer; background: none; border: none;
+      padding: 8px; margin-left: auto; flex-shrink: 0;
+    }
+    .hamburger span {
+      display: block; width: 22px; height: 2px;
+      background: var(--navy); border-radius: 2px;
+      transition: all .25s ease;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* ── Tablet (≤1024px) ── */
+    @media (max-width: 1024px) {
+      .featured-inner { gap: 40px; }
+      .detail-grid { gap: 40px; }
+      .venues-grid { gap: 24px; }
+      .overview-grid { gap: 24px; }
+      .faq-grid { gap: 32px; }
+      .concert-cards { gap: 16px; }
+      .pricing-grid { gap: 20px; }
+    }
+
+    /* ── Mobile (≤768px) ── */
+    @media (max-width: 768px) {
+
+      /* Nav */
+      .hamburger { display: flex; }
+      .nav-inner { height: 64px; position: relative; }
+      .nav-cta { display: none; }
+      .nav-links {
+        display: none; flex-direction: column; gap: 0;
+        position: absolute; top: 64px; left: 0; right: 0;
+        background: var(--white); border-bottom: 2px solid var(--gold);
+        box-shadow: 0 8px 24px rgba(0,0,0,.12); z-index: 999;
+        padding: 8px 0;
+      }
+      .nav-links.open { display: flex; }
+      .nav-links li { width: 100%; }
+      .nav-links a { padding: 12px 24px; border-radius: 0; font-size: 15px; }
+      .nav-logo img { height: 56px !important; }
+
+      /* Hero */
+      .hero { height: 72vh; min-height: 400px; }
+      .hero-content { padding: 40px 20px; }
+      .hero-title { font-size: clamp(30px, 8vw, 48px) !important; }
+      .hero-subtitle { font-size: 15px; }
+      .hero-actions { flex-direction: column; align-items: flex-start; }
+      .hero-scroll { display: none; }
+      .page-hero { padding: 56px 0 48px; }
+      .page-hero h1 { font-size: clamp(28px, 7vw, 44px); }
+
+      /* Announce bar */
+      .announce-bar { font-size: 12px; padding: 8px 16px; }
+
+      /* Universal 2-col → 1-col */
+      .featured-inner,
+      .venues-grid,
+      .faq-grid,
+      .overview-grid,
+      .detail-grid,
+      .profile-grid,
+      .eligibility-grid,
+      .board-columns,
+      .contact-cards,
+      .pricing-grid,
+      .youth-grid,
+      .intern-grid { grid-template-columns: 1fr !important; }
+
+      .detail-grid.reverse { direction: ltr !important; }
+      .detail-grid.reverse > * { direction: ltr !important; }
+
+      /* Concert cards — 2-up on mobile, 1-up on tiny */
+      .concert-cards { grid-template-columns: 1fr 1fr; gap: 12px; }
+
+      /* Schedule rows */
+      .schedule-row {
+        grid-template-columns: 1fr auto !important;
+        gap: 12px; padding: 16px 0;
+      }
+      .schedule-row.with-img {
+        grid-template-columns: 1fr auto !important;
+      }
+      .sched-artist-img { display: none !important; }
+      .sched-info { grid-column: 1; }
+      .sched-action { grid-row: 1; grid-column: 2; }
+      .sched-date-block { grid-column: 1 / -1; }
+      .sched-title { font-size: 16px; }
+
+      /* Sections */
+      .featured-concert { padding: 48px 0; }
+      .detail-section { padding: 56px 0; }
+      .overview-section { padding: 56px 0; }
+      .schedule-section { padding: 56px 0; }
+      .venues-section { padding: 56px 0; }
+      .faq-section { padding: 48px 0; }
+
+      /* Featured concert */
+      .featured-image { aspect-ratio: 16/9; }
+
+      /* Pricing cards */
+      .pricing-grid { gap: 16px; }
+      .pricing-card { padding: 28px 24px; }
+
+      /* Contact section */
+      .contact-inner { flex-direction: column !important; gap: 32px; }
+      .contact-cards { flex-direction: column; }
+
+      /* Venue cards */
+      .venue-card { max-width: 100%; }
+
+      /* Subsections */
+      .sub-nav { top: 64px !important; padding: 0; overflow-x: auto; white-space: nowrap; }
+      .sub-links { gap: 0; }
+      .sub-link { padding: 10px 16px !important; font-size: 13px !important; }
+
+      /* Detail image */
+      .detail-image { aspect-ratio: 16/9; }
+      .profile-img { aspect-ratio: 4/3 !important; }
+
+      /* Competition cards */
+      .comp-card-header { padding: 24px 24px 20px; }
+      .comp-card-body { padding: 24px; }
+      .comp-card-title { font-size: 22px; }
+
+      /* Tabs */
+      .schedule-tabs { gap: 4px; flex-wrap: wrap; }
+      .tab { padding: 8px 16px; font-size: 13px; }
+
+      /* Buttons */
+      .btn { padding: 12px 24px; font-size: 13px; }
+      .hero-actions .btn { width: 100%; max-width: 280px; text-align: center; }
+
+      /* Typography */
+      .section-title { font-size: clamp(24px, 6vw, 36px) !important; }
+
+      /* General container */
+      .container { padding: 0 16px; }
+    }
+
+    /* ── Small mobile (≤480px) ── */
+    @media (max-width: 480px) {
+      .concert-cards { grid-template-columns: 1fr; }
+      .hero { height: 80vh; }
+      .faq-grid > div:last-child { display: none; }
+    }
   </style>
 </head>
 <body>
@@ -127,8 +281,10 @@
 
 <nav>
   <div class="nav-inner">
-    <a class="nav-logo" href="#"><span class="nav-logo-top">Lewisville Lake Symphony</span><span class="nav-logo-sub">Lewisville, Texas · Est. 1985</span></a>
-    <ul class="nav-links">
+    <a class="nav-logo" href="#" style="margin-right:48px;flex-shrink:0;">
+      <img src="img/llso_logotype.png" alt="Lewisville Lake Symphony" style="height:80px;width:auto;display:block;" />
+    </a>
+    <ul class="nav-links" id="nav-links">
       <li><a href="index.html">Home</a></li>
       <li><a href="lewisville-symphony-tickets.html">Concerts &amp; Tickets</a></li>
       <li><a href="lewisville-symphony-donate.html">Donate</a></li>
@@ -244,7 +400,7 @@
   <div class="container">
     <div class="profile-grid">
       <div class="profile-img-wrap">
-        <img src="img/nancy wright.avif" alt="Nancy Wright" class="profile-img" />
+        <img src="img/Nancy Wright.avif" alt="Nancy Wright" class="profile-img" />
         <div class="photo-credit">Photo ©2026 Nikki Dunnahoo Photography</div>
       </div>
       <div class="profile-content">
@@ -598,5 +754,15 @@
     </div>
   </div>
 </footer>
+
+  <script>
+    // Close nav when a link is clicked
+    document.querySelectorAll('.nav-links a').forEach(function(a){
+      a.addEventListener('click', function(){
+        document.getElementById('nav-links').classList.remove('open');
+        document.querySelector('.hamburger') && document.querySelector('.hamburger').classList.remove('open');
+      });
+    });
+  </script>
 </body>
 </html>
